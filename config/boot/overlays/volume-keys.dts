@@ -1,0 +1,39 @@
+/dts-v1/;
+/plugin/;
+/ {
+  compatible = "brcm,bcm2835", "brcm,bcm2708", "brcm,bcm2709";
+
+  fragment@0 {
+    target = <&gpio>;
+    __overlay__ {
+      pinctrl-names = "default";
+      pinctrl-0 = <&volume_pins>;
+
+      volume_pins: volume_pins {
+         brcm,pins = <0x17 0x18>;
+         brcm,function = <0 0>;
+         brcm,pull = <2 2>;
+       };
+    };
+  };
+
+  fragment@1 {
+    target-path = "/";
+    __overlay__ {
+      volume_keys: volume_keys {
+        compatible = "gpio-keys";
+        autorepeat;
+        button@17 {
+          label = "Volume Up";
+          linux,code = <0x73>;
+          gpios = <&gpio 0x17 1>;
+        };
+        button@18 {
+          label = "Volume Down";
+          linux,code = <0x72>;
+          gpios = <&gpio 0x18 1>;
+        };
+      };
+    };
+  };
+};

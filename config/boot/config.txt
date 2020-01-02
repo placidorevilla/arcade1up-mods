@@ -1,0 +1,5 @@
+dtparam=watchdog=on
+
+dtoverlay=gpio-poweroff,gpiopin=5
+dtoverlay=gpio-shutdown,gpio_pin=17,gpio_pull=off,debounce=200
+dtoverlay=volume-keys
